@@ -80,8 +80,8 @@ $browser.getCapabilities().then(function () { })
 
 // Step 6
 .then(function() {
-  log(6, 'clickElement "Continue with selections"');
-  return $browser.waitForAndFindElement(By.linkText("Continue with selections"), DefaultTimeout); })
+  log(6, 'clickElement "button.BtnPrimary.u-fullWidth"');
+  return $browser.waitForAndFindElement(By.css("button.BtnPrimary.u-fullWidth"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 6.1
