@@ -293,6 +293,7 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.id("toPaymentButton"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
+
 // Step 33
 .then(function() {
   log(33, 'setElementSelected "UseAdvance"');
@@ -305,13 +306,6 @@ $browser.getCapabilities().then(function () { })
   log(34, 'clickElement "//label[@for=\'NlPayAgreement\']"');
   return $browser.waitForAndFindElement(By.xpath("//label[@for='NlPayAgreement']"), DefaultTimeout); })
 .then(function (el) { el.click(); })
-
-// Step 35
-.then(function() {
-  log(35, 'setElementSelected "NlPayAgreement"');
-  return $browser.waitForAndFindElement(By.id("NlPayAgreement"), DefaultTimeout); })
-.then(function(el) { el.isSelected()
-  .then(function(bool) { if (!bool) { el.click(); } }); })
 
 // Step 36
 .then(function() {
