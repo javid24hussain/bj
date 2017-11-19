@@ -35,6 +35,12 @@ var log = function(thisStep, thisMsg) {
   }
 };
 
+function elementIsPresent(ele) {
+  return $browser.findElements(ele).then(function(found) {
+    return found.length > 0;
+  })
+}
+
 /** BEGINNING OF SCRIPT **/
 
 console.log('Starting synthetics script: tcuksynthetics');
@@ -59,6 +65,14 @@ $browser.getCapabilities().then(function () { })
 .then(function() {
   log(2, '$browser.navigate().refresh()');
   return $browser.navigate().refresh(); })
+
+// Step 2.1
+.then(function() {
+  log(2.1, 'clickElement "span.e108742-close.e108742-close-on-click"');
+  return elementIsPresent(By.css("span.e108742-close.e108742-close-on-click"), DefaultTimeout); })
+.then(function(found) {
+  return $browser.waitForAndFindElement(By.css("span.e108742-close.e108742-close-on-click"), DefaultTimeout); })
+.then(function (el) { el.click(); })
 
 // Step 3
 .then(function() {
