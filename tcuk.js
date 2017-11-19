@@ -92,6 +92,14 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.linkText("Get Quote"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
+// Step 5.1
+.then(function() {
+  log(5.1, 'clickElement "Closing Help Popup Window"');
+  return elementIsPresent(By.xpath("//div[@id=\'bt_invite_box\']/div[2]/img"), DefaultTimeout); })
+.then(function(found) {
+  return $browser.waitForAndFindElement(By.xpath("//div[@id=\'bt_invite_box\']/div[2]/img"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
 // Step 6
 .then(function() {
   log(6, 'clickElement "button.BtnPrimary.u-fullWidth"');
