@@ -96,8 +96,8 @@ $browser.getCapabilities().then(function () { })
 
 // Step 6
 .then(function() {
-  log(6, 'clickElement "calcbuttonspan_calc"');
-  return $browser.waitForAndFindElement(By.id("calcbuttonspan_calc"), DefaultTimeout); })
+  log(6, 'clickElement "calcbuttonspan_calctransport"');
+  return $browser.waitForAndFindElement(By.id("calcbuttonspan_calctransport"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 7
@@ -291,44 +291,6 @@ $browser.getCapabilities().then(function () { })
 .then(function() {
   log(32, 'clickElement "toPaymentButton"');
   return $browser.waitForAndFindElement(By.id("toPaymentButton"), DefaultTimeout); })
-.then(function (el) { el.click(); })
-
-
-// Step 33
-.then(function() {
-  log(33, 'setElementSelected "UseAdvance"');
-  return $browser.waitForAndFindElement(By.id("UseAdvance"), DefaultTimeout); })
-.then(function(el) { el.isSelected()
-  .then(function(bool) { if (!bool) { el.click(); } }); })
-
-// Step 34
-.then(function() {
-  log(34, 'clickElement "//label[@for=\'NlPayAgreement\']"');
-  return $browser.waitForAndFindElement(By.xpath("//label[@for='NlPayAgreement']"), DefaultTimeout); })
-.then(function (el) { el.click(); })
-
-// Step 36
-.then(function() {
-  log(36, 'clickElement "defaultPaymentAgreed_label"');
-  return $browser.waitForAndFindElement(By.id("defaultPaymentAgreed_label"), DefaultTimeout); })
-.then(function (el) { el.click(); })
-
-// Step 37
-.then(function() {
-  log(37, 'clickElement "doPayment_CREDITCARD"');
-  return $browser.waitForAndFindElement(By.id("doPayment_CREDITCARD"), DefaultTimeout); })
-.then(function (el) { el.click(); })
-
-// Step 38
-.then(function() {
-  log(38, 'clickElement "VISA_brand"');
-  return $browser.waitForAndFindElement(By.name("VISA_brand"), DefaultTimeout); })
-.then(function (el) { el.click(); })
-
-// Step 39
-.then(function() {
-  log(39, 'clickElement "Ecom_Payment_Card_Number"');
-  return $browser.waitForAndFindElement(By.id("Ecom_Payment_Card_Number"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 .then(function() {
