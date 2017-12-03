@@ -42,7 +42,7 @@ function elementIsPresent(ele) {
     return found.length > 0;
   })
 }
-var invite = elementIsPresent(By.css("span.e108742-close.e108742-close-on-click"));
+var invite = elementIsPresent(By.xpath("//div[@id='e108742-promo-lightbox']/span"));
 var cookie = elementIsPresent(By.linkText("Close"));
 var help = elementIsPresent(By.xpath("//div[@id=\'bt_invite_box\']/div[2]/img"));
 
@@ -76,11 +76,11 @@ $browser.getCapabilities().then(function () { })
 // Step 2.1 Invite POP UP CHECK POINT
 .then(function(){
 log(2.1,'Close Signup Invite Popup');
-	return elementIsPresent(By.css("span.e108742-close.e108742-close-on-click")); })
+	return elementIsPresent(By.xpath("//div[@id='e108742-promo-lightbox']/span")); })
 	.then(function(invite){
 		if(invite === true) {
 			console.log("Item located");
-	return $browser.findElement(By.css("span.e108742-close.e108742-close-on-click"))
+	return $browser.findElement(By.xpath("//div[@id='e108742-promo-lightbox']/span"))
 	.then(function(el){	el.click();	});}})
 
 // Step 2.2 cookie POP UP CHECK POINT
