@@ -35,11 +35,18 @@ var log = function(thisStep, thisMsg) {
   }
 };
 
+//POPUP CHECKER FUNCTIONS START
+
 function elementIsPresent(ele) {
   return $browser.findElements(ele).then(function(found) {
     return found.length > 0;
   })
 }
+var invite = elementIsPresent(By.css("span.e108742-close.e108742-close-on-click"));
+var cookie = elementIsPresent(By.linkText("Close"));
+var help = elementIsPresent(By.xpath("//div[@id=\'bt_invite_box\']/div[2]/img"));
+
+//POPUP CHECKER FUNCTIONS END
 
 /** BEGINNING OF SCRIPT **/
 
@@ -62,17 +69,29 @@ $browser.getCapabilities().then(function () { })
   return $browser.get("https://www.thomascook.com/"); })
 
 // Step 2
-.then(function() {
-  log(2, '$browser.navigate().refresh()');
-  return $browser.navigate().refresh(); })
+//.then(function() {
+//  log(2, '$browser.navigate().refresh()');
+//  return $browser.navigate().refresh(); })
 
-// Step 2.1
+// Step 2.1 Invite POP UP CHECK POINT
+.then(function(){
+log(2.1,'Close Signup Invite Popup');
+	return elementIsPresent(By.css("span.e108742-close.e108742-close-on-click")); })
+	.then(function(invite){
+		if(invite === true) {
+			console.log("Item located");
+	return $browser.findElement(By.css("span.e108742-close.e108742-close-on-click"))
+	.then(function(el){	el.click();	});}})
+
+// Step 2.2 cookie POP UP CHECK POINT
 .then(function() {
-  log(2.1, 'clickElement "span.e108742-close.e108742-close-on-click"');
-  return elementIsPresent(By.css("span.e108742-close.e108742-close-on-click"), DefaultTimeout); })
-.then(function(found) {
-  return $browser.waitForAndFindElement(By.css("span.e108742-close.e108742-close-on-click"), DefaultTimeout); })
-.then(function (el) { el.click(); })
+  log(2.2, 'clickElement "accept-cookies"');
+  return elementIsPresent(By.linkText("Close")); })
+	.then(function(cookie){
+		if(cookie === true) {
+			console.log("Item located");
+	return $browser.findElement(By.linkText("Close"))
+	.then(function(el){	el.click();	});}})
 
 // Step 3
 .then(function() {
@@ -95,10 +114,12 @@ $browser.getCapabilities().then(function () { })
 // Step 5.1
 .then(function() {
   log(5.1, 'clickElement "Closing Help Popup Window"');
-  return elementIsPresent(By.xpath("//div[@id=\'bt_invite_box\']/div[2]/img"), DefaultTimeout); })
-.then(function(found) {
-  return $browser.waitForAndFindElement(By.xpath("//div[@id=\'bt_invite_box\']/div[2]/img"), DefaultTimeout); })
-.then(function (el) { el.click(); })
+  return elementIsPresent(By.xpath("//div[@id=\'bt_invite_box\']/div[2]/img")); })
+	.then(function(help){
+		if(help === true) {
+			console.log("Item located");
+	return $browser.findElement(By.xpath("//div[@id=\'bt_invite_box\']/div[2]/img"))
+	.then(function(el){	el.click();	});}})
 
 // Step 6
 .then(function() {
