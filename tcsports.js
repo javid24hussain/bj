@@ -253,8 +253,10 @@ $browser.getCapabilities().then(function () { })
 .then(function() {
   log(lastStep, '');
   console.log('Browser script execution SUCCEEDED.');
+  $browser.takeScreenshot()
 }, function(err) {
   console.log ('Browser script execution FAILED.');
+  $browser.takeScreenshot()
   throw(err);
 });
 
