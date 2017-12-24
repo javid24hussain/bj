@@ -255,10 +255,10 @@ $browser.getCapabilities().then(function () { })
 .then(function (el) { el.click(); })
 
 // Step 28
-.then(function() {
-  log(28, 'clickElement "title2Room1Label"');
-  return $browser.waitForAndFindElement(By.id("title2Room1Label"), DefaultTimeout); })
-.then(function (el) { el.click(); })
+//.then(function() {
+//  log(28, 'clickElement "title2Room1Label"');
+//  return $browser.waitForAndFindElement(By.id("title2Room1Label"), DefaultTimeout); })
+//.then(function (el) { el.click(); })
 
 // Step 29
 .then(function() {
