@@ -88,29 +88,90 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.css("div.ms-res-item.ms-res-item-active"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
+// Step 3
+.then(function() {
+  log(3, 'clickElement "acrFromCalendarIcon"');
+  return $browser.waitForAndFindElement(By.id("acrFromCalendarIcon"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 4
+.then(function() {
+  log(4, 'setElementSelected "//select[@class=\'ui-datepicker-year\']//option[2]"');
+  return $browser.waitForAndFindElement(By.xpath("//select[@class=\'ui-datepicker-year\']//option[2]"), DefaultTimeout); })
+.then(function(el) { el.isSelected()
+  .then(function(bool) { if (!bool) { el.click(); } }); })
+
+// Step 5
+.then(function() {
+  log(5, 'clickElement "1"');
+  return $browser.waitForAndFindElement(By.linkText("1"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 6
+.then(function() {
+  log(6, 'clickElement "acrToCalendarIcon"');
+  return $browser.waitForAndFindElement(By.id("acrToCalendarIcon"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 7
+.then(function() {
+  log(7, 'clickElement "30"');
+  return $browser.waitForAndFindElement(By.linkText("30"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+
 // Step 5
 .then(function() {
   log(5, 'Clicking on Search Package');
   return $browser.waitForAndFindElement(By.id("acrProductSearch"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-// Step 6
+
+// Step 56
 .then(function() {
-  log(6, 'Clicking on "Get quote"');
-  return $browser.waitForAndFindElement(By.css("span.fontIcon-arrow-right"), DefaultTimeout); })
+  log(56, 'mouseOverElement "Get quote"');
+  return $browser.waitForAndFindElement(By.linkText("Get quote"), DefaultTimeout); })
+.then(function (el) { $browser.actions().mouseMove(el).perform(); })
+
+
+// Step 57
+.then(function() {
+  log(57, 'clickElement "Get quote"');
+  return $browser.waitForAndFindElement(By.linkText("Get quote"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-// Step 7
- .then(function() {
-  log(7, 'Selecting the fist package from the search result');
-  return $browser.waitForAndFindElement(By.css("span.fontIcon-arrow-right"), DefaultTimeout); })
+// Step 45
+.then(function() {
+  log(45, 'clickElement "accomCheckout"');
+  return $browser.waitForAndFindElement(By.id("accomCheckout"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-// Step 8
+// Step 46
 .then(function() {
-  log(8, 'Clicking on Continue Button"');
-  return $browser.waitForAndFindElement(By.id("continueButton"), DefaultTimeout); })
+  log(46, 'setElementSelected "errataModalChkBox"');
+  return $browser.waitForAndFindElement(By.id("errataModalChkBox"), DefaultTimeout); })
+.then(function(el) { el.isSelected()
+  .then(function(bool) { if (!bool) { el.click(); } }); })
+
+// Step 47
+.then(function() {
+  log(47, 'clickElement "errataModalCheckOutBtn"');
+  return $browser.waitForAndFindElement(By.id("errataModalCheckOutBtn"), DefaultTimeout); })
 .then(function (el) { el.click(); })
+
+// Step 48
+.then(function () {
+  log(48, 'verifyTextPresent "RECOMMENDED FLIGHT AND HOLIDAY EXTRAS"');
+  $browser.findElement(By.tagName('body')).getText().then(function (text) { return text.indexOf("RECOMMENDED FLIGHT AND HOLIDAY EXTRAS") != -1; }).then(function (bool) {
+    if (!bool) {
+      console.log('verifyTextPresent FAILED.');
+      $browser.takeScreenshot();
+    } else {
+      console.log('verifyTextPresent SUCCEEDED.');
+    }
+  });
+})
+
 
 .then(function() {
   log(lastStep, '');
