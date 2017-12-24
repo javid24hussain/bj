@@ -1,6 +1,9 @@
 /**
- * Script Name: 
+ * Script Name: necpath1
  * 
+ * Generated script for New Relic Synthetics
+ * Generated using se-builder with New Relic Synthetics Formatter
+ *
  * Feel free to explore, or check out the full documentation
  * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
  * for details.
@@ -50,7 +53,7 @@ var log = function(thisStep, thisMsg) {
 
 /** BEGINNING OF SCRIPT **/
 
-console.log('Starting synthetics script: ');
+console.log('Starting synthetics script: necpath1');
 console.log('Default timeout is set to ' + (DefaultTimeout/1000) + ' seconds');
 console.log('Variables set in this script: ', VARS);
 
@@ -94,20 +97,20 @@ $browser.getCapabilities().then(function () { })
 
 // Step 6
 .then(function() {
-  log(6, 'clickElement "button.BtnPrimary"');
-  return $browser.waitForAndFindElement(By.css("button.BtnPrimary"), DefaultTimeout); })
+  log(6, 'clickElement "//div[@id=\'stickyBreak\']//button[.=\'Bereken mijn totaalprijs\']"');
+  return $browser.waitForAndFindElement(By.xpath("//div[@id=\'stickyBreak\']//button[.=\'Bereken mijn totaalprijs\']"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 7
 .then(function() {
-  log(7, 'clickElement "Cliking on the item');
-  return $browser.waitForAndFindElement(By.xpath("//section[@id='priceBreakdown']/div[1]/div"), DefaultTimeout); })
+  log(7, 'clickElement "//section[@id=\'priceBreakdown\']/div[1]/div"');
+  return $browser.waitForAndFindElement(By.xpath("//section[@id=\'priceBreakdown\']/div[1]/div"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 8
 .then(function() {
-  log(8, 'clickElement "a.BtnPrimary"');
-  return $browser.waitForAndFindElement(By.css("a.BtnPrimary"), DefaultTimeout); })
+  log(8, 'clickElement "Deze vakantie boeken"');
+  return $browser.waitForAndFindElement(By.linkText("Deze vakantie boeken"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 9
@@ -147,11 +150,9 @@ $browser.getCapabilities().then(function () { })
 
 // Step 13
 .then(function() {
-  log(13, 'setElementText "surname"');
+  log(13, 'clickElement "surname"');
   return $browser.waitForAndFindElement(By.id("surname"), DefaultTimeout); })
-.then(function (el) {
-  el.clear();
-  el.sendKeys(); })
+.then(function (el) { el.click(); })
 
 // Step 14
 .then(function() {
@@ -159,7 +160,7 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.id("surname"), DefaultTimeout); })
 .then(function (el) {
   el.clear();
-  el.sendKeys("Test"); })
+  el.sendKeys("Rokin"); })
 
 // Step 15
 .then(function() {
@@ -179,18 +180,19 @@ $browser.getCapabilities().then(function () { })
 
 // Step 17
 .then(function() {
-  log(17, 'setElementSelected "//select[@id=\'country\']//option[1]"');
-  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'country\']//option[1]"), DefaultTimeout); })
-.then(function(el) { el.isSelected()
-  .then(function(bool) { if (!bool) { el.click(); } }); })
-
-// Step 18
-.then(function() {
-  log(18, 'setElementText "street"');
+  log(17, 'setElementText "street"');
   return $browser.waitForAndFindElement(By.id("street"), DefaultTimeout); })
 .then(function (el) {
   el.clear();
   el.sendKeys("Rokin"); })
+
+// Step 18
+.then(function() {
+  log(18, 'setElementText "houseNumber"');
+  return $browser.waitForAndFindElement(By.id("houseNumber"), DefaultTimeout); })
+.then(function (el) {
+  el.clear();
+  el.sendKeys("31302357822"); })
 
 // Step 19
 .then(function() {
@@ -232,8 +234,8 @@ $browser.getCapabilities().then(function () { })
 
 // Step 24
 .then(function() {
-  log(24, 'setElementSelected "//select[@id=\'year\']//option[18]"');
-  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'year\']//option[18]"), DefaultTimeout); })
+  log(24, 'setElementSelected "//select[@id=\'year\']//option[14]"');
+  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'year\']//option[14]"), DefaultTimeout); })
 .then(function(el) { el.isSelected()
   .then(function(bool) { if (!bool) { el.click(); } }); })
 
@@ -251,7 +253,7 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.id("emergencyName"), DefaultTimeout); })
 .then(function (el) {
   el.clear();
-  el.sendKeys("Test Test"); })
+  el.sendKeys("test"); })
 
 // Step 27
 .then(function() {
@@ -267,6 +269,7 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.linkText("Verder"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
+
 // Step 29
 .then(function() {
   log(29, 'setElementSelected "//select[@id=\'title2Room1\']//option[3]"');
@@ -280,7 +283,7 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.id("name2Room1"), DefaultTimeout); })
 .then(function (el) {
   el.clear();
-  el.sendKeys("Test"); })
+  el.sendKeys("test"); })
 
 // Step 31
 .then(function() {
@@ -288,7 +291,7 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.id("middlename2Room1"), DefaultTimeout); })
 .then(function (el) {
   el.clear();
-  el.sendKeys("Test"); })
+  el.sendKeys("test"); })
 
 // Step 32
 .then(function() {
@@ -296,7 +299,7 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.id("surname2Room1"), DefaultTimeout); })
 .then(function (el) {
   el.clear();
-  el.sendKeys("Test"); })
+  el.sendKeys("test"); })
 
 // Step 33
 .then(function() {
@@ -314,8 +317,8 @@ $browser.getCapabilities().then(function () { })
 
 // Step 35
 .then(function() {
-  log(35, 'setElementSelected "//select[@id=\'year2Room1\']//option[2]"');
-  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'year2Room1\']//option[2]"), DefaultTimeout); })
+  log(35, 'setElementSelected "//select[@id=\'year2Room1\']//option[16]"');
+  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'year2Room1\']//option[16]"), DefaultTimeout); })
 .then(function(el) { el.isSelected()
   .then(function(bool) { if (!bool) { el.click(); } }); })
 
@@ -326,22 +329,17 @@ $browser.getCapabilities().then(function () { })
 .then(function (el) { el.click(); })
 
 // Step 37
-.then(function() {
-  log(37, 'clickElement "//label[@for=\'PAYMENT_CARD\']"');
-  return $browser.waitForAndFindElement(By.xpath("//label[@for=\'PAYMENT_CARD\']"), DefaultTimeout); })
-.then(function (el) { el.click(); })
-
-// Step 38
-//.then(function() {
-//  log(38, 'clickElement "PAYMENT_CARD"');
-//  return $browser.waitForAndFindElement(By.id("PAYMENT_CARD"), DefaultTimeout); })
-//.then(function (el) { el.click(); })
-
-// Step 39
-.then(function() {
-  log(39, 'clickElement "label.FormField-labelCheckbox.FormField-labelCheckbox--e"');
-  return $browser.waitForAndFindElement(By.css("label.FormField-labelCheckbox.FormField-labelCheckbox--e"), DefaultTimeout); })
-.then(function (el) { el.click(); })
+.then(function () {
+  log(37, 'verifyTextPresent "Passagiersgegevens"');
+  $browser.findElement(By.tagName('body')).getText().then(function (text) { return text.indexOf("Passagiersgegevens") != -1; }).then(function (bool) {
+    if (!bool) {
+      console.log('verifyTextPresent FAILED.');
+      $browser.takeScreenshot();
+    } else {
+      console.log('verifyTextPresent SUCCEEDED.');
+    }
+  });
+})
 
 .then(function() {
   log(lastStep, '');
