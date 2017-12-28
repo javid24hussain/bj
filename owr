@@ -146,6 +146,12 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.id("accomCheckout"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
+// Step 13
+.then(function() {
+  log(13, 'mouseOverElement "errataModalChkBox"');
+  return $browser.waitForAndFindElement(By.id("errataModalChkBox"), DefaultTimeout); })
+.then(function (el) { $browser.actions().mouseMove(el).perform(); })
+
 // Step 46
 .then(function() {
   log(46, 'setElementSelected "errataModalChkBox"');
