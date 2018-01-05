@@ -56,7 +56,7 @@ function elementIsPresent(ele) {
 }
 var slider = elementIsPresent(By.css("div.ProductRecs-close"));
 
-//SLIDER CHECK START
+//SLIDER CHECK END
 
 /** BEGINNING OF SCRIPT **/
 
