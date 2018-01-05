@@ -40,6 +40,19 @@ var log = function(thisStep, thisMsg) {
   }
 };
 
+//ADVANCE RADIO BUTTON CHECK START
+
+function elementIsPresent(ele) {
+  return $browser.findElements(ele).then(function(found) {
+    return found.length > 0;
+  })
+}
+var advance = elementIsPresent(By.id("UseNoAdvance"));
+
+//ADVANCE RADIO BUTTON CHECK END
+
+
+
 /** BEGINNING OF SCRIPT **/
 
 console.log('Starting synthetics script: ');
@@ -259,11 +272,14 @@ $browser.getCapabilities().then(function () { })
 .then(function (el) { el.click(); })
 
 // Step 29
-.then(function() {
-  log(29, 'setElementSelected "UseNoAdvance"');
-  return $browser.waitForAndFindElement(By.id("UseNoAdvance"), DefaultTimeout); })
-.then(function(el) { el.isSelected()
-  .then(function(bool) { if (!bool) { el.click(); } }); })
+.then(function(){
+log(29, 'setElementSelected "UseNoAdvance"');
+	return elementIsPresent(By.id("UseNoAdvance")); })
+	.then(function(advance){
+		if(advance === true) {
+			console.log("Item located");
+	return $browser.findElement(By.id("UseNoAdvance"))
+	.then(function(el){	el.click();	});}})
 
 // Step 30
 .then(function() {
