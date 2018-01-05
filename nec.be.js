@@ -79,33 +79,45 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.id("accept-cookies"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
+// Step 4
+.then(function() {
+  log(4, 'clickElement "SearchbarForm-submitBtn"');
+  return $browser.waitForAndFindElement(By.id("SearchbarForm-submitBtn"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
 // Step 5
 .then(function() {
-  log(5, 'clickElement "SearchbarForm-submitBtn"');
-  return $browser.waitForAndFindElement(By.id("SearchbarForm-submitBtn"), DefaultTimeout); })
+  log(5, 'clickElement "a.BtnPrimary.detailsBtn"');
+  return $browser.waitForAndFindElement(By.css("a.BtnPrimary.detailsBtn"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 6
 .then(function() {
-  log(6, 'clickElement "a.BtnPrimary.detailsBtn"');
-  return $browser.waitForAndFindElement(By.css("a.BtnPrimary.detailsBtn"), DefaultTimeout); })
+  log(6, 'clickElement "Chambres"');
+  return $browser.waitForAndFindElement(By.linkText("Chambres"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 7
 .then(function() {
-  log(7, 'clickElement "//div[@id=\'stickyBreak\']//button[.=\'Calculer prix total\']"');
-  return $browser.waitForAndFindElement(By.xpath("//div[@id=\'stickyBreak\']//button[.=\'Calculer prix total\']"), DefaultTimeout); })
+  log(7, 'clickElement "div.ProductRecs-close"');
+  return $browser.waitForAndFindElement(By.css("div.ProductRecs-close"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 8
 .then(function() {
-  log(8, 'clickElement "Je réserve à ce prix"');
-  return $browser.waitForAndFindElement(By.linkText("Je réserve à ce prix"), DefaultTimeout); })
+  log(8, 'clickElement "//div[@id=\'stickyBreak\']//button[.=\'Calculer prix total\']"');
+  return $browser.waitForAndFindElement(By.xpath("//div[@id=\'stickyBreak\']//button[.=\'Calculer prix total\']"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 9
 .then(function() {
-  log(9, 'clickElement "submit-extras"');
+  log(9, 'clickElement "Je réserve à ce prix"');
+  return $browser.waitForAndFindElement(By.linkText("Je réserve à ce prix"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 9.1
+.then(function() {
+  log(9.1, 'clickElement "submit-extras"');
   return $browser.waitForAndFindElement(By.id("submit-extras"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
