@@ -47,6 +47,17 @@ var log = function(thisStep, thisMsg) {
   }
 };
 
+//SLIDER CHECK START
+
+function elementIsPresent(ele) {
+  return $browser.findElements(ele).then(function(found) {
+    return found.length > 0;
+  })
+}
+var slider = elementIsPresent(By.css("div.ProductRecs-close"));
+
+//SLIDER CHECK START
+
 /** BEGINNING OF SCRIPT **/
 
 console.log('Starting synthetics script: necbese');
@@ -100,8 +111,12 @@ $browser.getCapabilities().then(function () { })
 // Step 7
 .then(function() {
   log(7, 'clickElement "div.ProductRecs-close"');
-  return $browser.waitForAndFindElement(By.css("div.ProductRecs-close"), DefaultTimeout); })
-.then(function (el) { el.click(); })
+	return elementIsPresent(By.css("div.ProductRecs-close")); })
+	.then(function(slider){
+		if(slider === true) {
+			console.log("Item located");
+	return $browser.findElement(By.css("div.ProductRecs-close"))
+	.then(function(el){	el.click();	});}})
 
 // Step 8
 .then(function() {
