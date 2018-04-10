@@ -1,0 +1,30 @@
+<?php
+$url = 'https://insights-collector.newrelic.com/v1/accounts/1298914/events';
+
+$ch = curl_init($url);
+$webhookContent = "";
+
+$webhook = fopen('php://input' , 'rb');
+while (!feof($webhook)) {
+    $webhookContent .= fread($webhook, 4096);
+}
+fclose($webhook);
+$json = json_decode($webhookContent, true);
+$json['name'] = $json['targets'][0]['name'];
+$json['id'] = $json['targets'][0]['id'];
+$json['link'] = $json['targets'][0]['link'];
+$json['product'] = $json['targets'][0]['product'];
+$json['type'] = $json['targets'][0]['type'];
+$json_new = json_encode($json);
+error_log($json['targets'][0]['name']);
+error_log($json_new);
+
+curl_setopt($ch, CURLOPT_POST, 1);
+
+curl_setopt($ch, CURLOPT_POSTFIELDS, $json_new);
+
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type : application/json', 'X-Insert-Key : YOURKEY')); 
+
+$result = curl_exec($ch);
+
+?>
