@@ -48,6 +48,18 @@ var log = function(thisStep, thisMsg) {
   }
 };
 
+//POPUP CHECKER FUNCTIONS START
+
+function elementIsPresent(ele) {
+  return $browser.findElements(ele).then(function(found) {
+    return found.length > 0;
+  })
+}
+
+var owrstatus = elementIsPresent(By.xpath("//div[@aria-hidden=\'true\']"));
+
+//POPUP CHECKER FUNCTIONS END /OneWeb Retail status
+
 /** BEGINNING OF SCRIPT **/
 
 console.log('Starting synthetics script: owrsynthetics');
@@ -73,6 +85,16 @@ $browser.getCapabilities().then(function () { })
   log(2, 'Logging in as Guest"');
   return $browser.waitForAndFindElement(By.id("testLogin"), DefaultTimeout); })
 .then(function (el) { el.click(); })
+
+// Step 2.1 Invite POP UP CHECK POINT
+.then(function(){
+log(2.1,'Close Signup Invite Popup');
+	return elementIsPresent(By.xpath("//div[@id=\'statusMsgModal\']//button[.=\'Close\']")); })
+	.then(function(owrstatus){
+		if(owrstatus === true) {
+			console.log(owrstatus+ "Item located");
+	return $browser.findElement(By.xpath("//div[@id=\'statusMsgModal\']//button[.=\'Close\']"))
+	.then(function(el){	el.click();	});}})
 
 // Step 3
 .then(function() {
@@ -115,8 +137,8 @@ $browser.getCapabilities().then(function () { })
 
 // Step 7
 .then(function() {
-  log(7, 'clickElement "30"');
-  return $browser.waitForAndFindElement(By.linkText("30"), DefaultTimeout); })
+  log(7, 'clickElement "28"');
+  return $browser.waitForAndFindElement(By.linkText("28"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 
