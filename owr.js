@@ -56,7 +56,7 @@ function elementIsPresent(ele) {
   })
 }
 
-var owrstatus = elementIsPresent(By.xpath("//div[@aria-hidden=\'true\']"));
+var owrstatus = elementIsPresent(By.className("serviceAlerts-status"));
 
 //POPUP CHECKER FUNCTIONS END /OneWeb Retail status
 
@@ -86,10 +86,23 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.id("testLogin"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
+// Step 21
+.then(function () {
+  log(21, 'verifyTextPresent "ONEWEB RETAIL STATUS"');
+  $browser.findElement(By.tagName('body')).getText().then(function (text) { return text.indexOf("ONEWEB RETAIL STATUS") != -1; }).then(function (bool) {
+    if (!bool) {
+      console.log('verifyTextPresent FAILED.');
+      $browser.takeScreenshot();
+    } else {
+      console.log('verifyTextPresent SUCCEEDED.');
+    }
+  });
+})
+
 // Step 2.1 Invite POP UP CHECK POINT
 .then(function(){
 log(2.1,'Close Signup Invite Popup');
-	return elementIsPresent(By.xpath("//div[@id=\'statusMsgModal\']//button[.=\'Close\']")); })
+	return elementIsPresent(By.className("serviceAlerts-status")); })
 	.then(function(owrstatus){
 		if(owrstatus === true) {
 			console.log(owrstatus+ "Item located");
@@ -168,6 +181,20 @@ log(2.1,'Close Signup Invite Popup');
   return $browser.waitForAndFindElement(By.id("accomCheckout"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
+// Step 29
+.then(function () {
+  log(29, 'verifyTextPresent "I have read this back to the Customer"');
+  $browser.findElement(By.tagName('body')).getText().then(function (text) { return text.indexOf("I have read this back to the Customer") != -1; }).then(function (bool) {
+    if (!bool) {
+      console.log('verifyTextPresent FAILED.');
+      $browser.takeScreenshot();
+    } else {
+      console.log('verifyTextPresent SUCCEEDED.');
+    }
+  });
+})
+
+
 // Step 13
 .then(function() {
   log(13, 'mouseOverElement "errataModalChkBox"');
@@ -199,7 +226,6 @@ log(2.1,'Close Signup Invite Popup');
     }
   });
 })
-
 
 .then(function() {
   log(lastStep, '');
