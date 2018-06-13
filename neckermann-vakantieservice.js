@@ -51,6 +51,10 @@ var log = function(thisStep, thisMsg) {
   }
 };
 
+// Blacklisting URLS causing scripit timeouts as these resouces are unavailable
+$browser.addHostnameToBlacklist('cluster.ad-serverparc.nl');
+$browser.addHostnameToBlacklist('t.svtrd.com');
+
 /** BEGINNING OF SCRIPT **/
 
 console.log('Starting synthetics script: neckermann-vakantieservice');
