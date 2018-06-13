@@ -51,6 +51,10 @@ var log = function(thisStep, thisMsg) {
   }
 };
 
+// Blacklisting URLS causing scripit timeouts as these resouces are unavailable
+$browser.addHostnameToBlacklist('cluster.ad-serverparc.nl');
+$browser.addHostnameToBlacklist('api.shoppingminds.net');
+
 /** BEGINNING OF SCRIPT **/
 
 console.log('Starting synthetics script: necpath1');
@@ -79,8 +83,14 @@ $browser.getCapabilities().then(function () { })
 
 // Step 3
 .then(function() {
-  log(3, 'clickElement "img.img-responsive"');
-  return $browser.waitForAndFindElement(By.css("img.img-responsive"), DefaultTimeout); })
+  log(3, 'clickElement "st_popup_acceptButton"');
+  return $browser.waitForAndFindElement(By.id("st_popup_acceptButton"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 3
+.then(function() {
+  log(3, 'clickElement "Vliegvakanties"');
+  return $browser.waitForAndFindElement(By.partialLinkText("Vliegvakanties"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 4
