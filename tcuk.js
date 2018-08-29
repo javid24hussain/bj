@@ -1,6 +1,6 @@
 // Theshold for duration of entire script - fails test if script lasts longer than X (in ms)
 // Script-wide timeout for all wait and waitAndFind functions (in ms)
-var DefaultTimeout = 120000;
+var DefaultTimeout = 210000;
 // Change to any User Agent you want to use.
 // Leave as "default" or empty to use the Synthetics default.
 var UserAgent = "default";
@@ -45,6 +45,8 @@ function elementIsPresent(ele) {
 var invite = elementIsPresent(By.xpath("//div[@id='e108742-promo-lightbox']/span"));
 var cookie = elementIsPresent(By.linkText("Close"));
 var help = elementIsPresent(By.xpath("//div[@id=\'bt_invite_box\']/div[2]/img"));
+var twicebutton = elementIsPresent(By.id("titleLabel"));
+var slider = elementIsPresent(By.className("div.ProductRecs-close"));
 
 //POPUP CHECKER FUNCTIONS END
 
@@ -105,10 +107,26 @@ log(2.1,'Close Signup Invite Popup');
   return $browser.waitForAndFindElement(By.linkText("Details"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
+// Step 4.1
+.then(function() {
+  log(6, 'clickElement "Rooms"');
+  return $browser.waitForAndFindElement(By.linkText("Rooms"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 4.2
+.then(function() {
+  log(7, 'clickElement "div.ProductRecs-close"');
+	return elementIsPresent(By.css("div.ProductRecs-close")); })
+	.then(function(slider){
+		if(slider === true) {
+			console.log("Item located");
+	return $browser.findElement(By.css("div.ProductRecs-close"))
+	.then(function(el){	el.click();	});}})
+
 // Step 5
 .then(function() {
   log(5, 'clickElement "Get Quote"');
-  return $browser.waitForAndFindElement(By.linkText("Get Quote"), DefaultTimeout); })
+  return $browser.waitForAndFindElement(By.xpath("//div[@class='ptp-actions-continue']//button[.='Get Quote']"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 5.1
@@ -126,6 +144,16 @@ log(2.1,'Close Signup Invite Popup');
   log(6, 'clickElement "button.BtnPrimary.u-fullWidth"');
   return $browser.waitForAndFindElement(By.css("button.BtnPrimary.u-fullWidth"), DefaultTimeout); })
 .then(function (el) { el.click(); })
+
+// Step 2.2 twicebutton POP UP CHECK POINT
+.then(function() {
+  log(2.2, 'clickElement "titleLabel"');
+  return elementIsPresent(By.id("titleLabel")); })
+	.then(function(twicebutton){
+		if(twicebutton === false) {
+			console.log("Item located");
+	return $browser.findElement(By.css("button.BtnPrimary.u-fullWidth"))
+	.then(function(el){	el.click();	});}})
 
 // Step 6.1
 .then(function() {
@@ -335,12 +363,12 @@ log(2.1,'Close Signup Invite Popup');
 .then(function (el) { el.click(); })
 
 // Step 31
-.then(function() {
-  log(31, 'setElementText "promoCodeInput"');
-  return $browser.waitForAndFindElement(By.id("promoCodeInput"), DefaultTimeout); })
-.then(function (el) {
-  el.clear();
-  el.sendKeys(); })
+//.then(function() {
+//  log(31, 'setElementText "promoCodeInput"');
+//  return $browser.waitForAndFindElement(By.id("promoCodeInput"), DefaultTimeout); })
+//.then(function (el) {
+//  el.clear();
+//  el.sendKeys(); })
 
 .then(function() {
   log(lastStep, '');
