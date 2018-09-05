@@ -51,6 +51,19 @@ var log = function(thisStep, thisMsg) {
   }
 };
 
+//SLIDER CHECK START
+
+function elementIsPresent(ele) {
+  return $browser.findElements(ele).then(function(found) {
+    return found.length > 0;
+  })
+}
+var slider = elementIsPresent(By.css("div.ProductRecs-close"));
+var getquote = elementIsPresent(By.linkText("Kies je vlucht"));
+var submitextras= elementIsPresent(By.linkText("Deze vakantie boeken"));
+var submitextras2=elementIsPresent(By.id("submit-extras") );
+//SLIDER CHECK END
+
 // Blacklisting URLS causing scripit timeouts as these resouces are unavailable
 $browser.addHostnameToBlacklist('cluster.ad-serverparc.nl');
 $browser.addHostnameToBlacklist('api.shoppingminds.net');
@@ -77,15 +90,16 @@ $browser.getCapabilities().then(function () { })
 
 // Step 2
 .then(function() {
-  log(2, 'clickElement "div.close"');
-  return $browser.waitForAndFindElement(By.css("div.close"), DefaultTimeout); })
+  log(2, 'clickElement "st_popup_acceptButton"');
+  return $browser.waitForAndFindElement(By.id("st_popup_acceptButton"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 3
 .then(function() {
-  log(3, 'clickElement "st_popup_acceptButton"');
-  return $browser.waitForAndFindElement(By.id("st_popup_acceptButton"), DefaultTimeout); })
+  log(3, 'clickElement "div.close"');
+  return $browser.waitForAndFindElement(By.css("div.close"), DefaultTimeout); })
 .then(function (el) { el.click(); })
+
 
 // Step 3
 .then(function() {
@@ -108,7 +122,7 @@ $browser.getCapabilities().then(function () { })
 // Step 6
 .then(function() {
   log(6, 'clickElement "//div[@id=\'stickyBreak\']//button[.=\'Bereken mijn totaalprijs\']"');
-  return $browser.waitForAndFindElement(By.xpath("//div[@id=\'stickyBreak\']//button[.=\'Bereken mijn totaalprijs\']"), DefaultTimeout); })
+  return $browser.waitForAndFindElement(By.xpath("//div[@id='priceDetails']//button[.='Bereken mijn totaalprijs']"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 7
@@ -117,17 +131,57 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.xpath("//section[@id=\'priceBreakdown\']/div[1]/div"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-// Step 8
-.then(function() {
-  log(8, 'clickElement "Deze vakantie boeken"');
-  return $browser.waitForAndFindElement(By.linkText("Deze vakantie boeken"), DefaultTimeout); })
-.then(function (el) { el.click(); })
 
-// Step 9
+//Step 8
+.then(function(){
+log(2.1,'Close getquote');
+	return elementIsPresent(By.linkText("Kies je vlucht")); })
+	.then(function(getquote){
+		if(getquote === true) {
+			console.log("Item located");
+	return $browser.findElement(By.linkText("Kies je vlucht"))
+	.then(function(el){	el.click();	});}})
+/*// Step 8
+.then(function() {
+  log(8, 'clickElement "Kies je vlucht"');
+  return $browser.waitForAndFindElement(By.linkText("Kies je vlucht"), DefaultTimeout); })
+.then(function (el) { el.click(); })*/
+  
+//Step 8.1
+.then(function(){
+log(8.1,'Close submitextras');
+	return elementIsPresent(By.linkText("Deze vakantie boeken")); })
+	.then(function(submitextras){
+		if(submitextras === true) {
+			console.log("Item located");
+	return $browser.findElement(By.linkText("Deze vakantie boeken"))
+	.then(function(el){	el.click();	});}})
+
+
+/*// Step 8.1
+.then(function() {
+  log(8.1, 'clickElement "submit-extras"');
+  return $browser.waitForAndFindElement(By.linkText("Deze vakantie boeken"), DefaultTimeout); })
+.then(function (el) { el.click(); })*/
+ 
+//Step 9.1
+.then(function(){
+log(9.1,'Close submitextras2');
+	return elementIsPresent(By.id("submit-extras")); })
+	.then(function(submitextras2){
+		if(submitextras2 === true) {
+			console.log("Item located");
+	return $browser.findElement(By.id("submit-extras"))
+	.then(function(el){	el.click();	});}})
+
+
+
+
+/*// Step 9
 .then(function() {
   log(9, 'clickElement "submit-extras"');
   return $browser.waitForAndFindElement(By.id("submit-extras"), DefaultTimeout); })
-.then(function (el) { el.click(); })
+.then(function (el) { el.click(); })*/
 
 // Step 9.1
 .then(function() {
