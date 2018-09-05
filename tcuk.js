@@ -1,6 +1,6 @@
 // Theshold for duration of entire script - fails test if script lasts longer than X (in ms)
 // Script-wide timeout for all wait and waitAndFind functions (in ms)
-var DefaultTimeout = 210000;
+var DefaultTimeout = 240000;
 // Change to any User Agent you want to use.
 // Leave as "default" or empty to use the Synthetics default.
 var UserAgent = "default";
@@ -35,7 +35,7 @@ var log = function(thisStep, thisMsg) {
   }
 };
 
-//POPUP CHECKER FUNCTIONS START
+//CONDITION CHECKER FUNCTIONS START
 
 function elementIsPresent(ele) {
   return $browser.findElements(ele).then(function(found) {
@@ -45,10 +45,10 @@ function elementIsPresent(ele) {
 var invite = elementIsPresent(By.xpath("//div[@id='e108742-promo-lightbox']/span"));
 var cookie = elementIsPresent(By.linkText("Close"));
 var help = elementIsPresent(By.xpath("//div[@id=\'bt_invite_box\']/div[2]/img"));
-var twicebutton = elementIsPresent(By.id("titleLabel"));
-var slider = elementIsPresent(By.className("div.ProductRecs-close"));
+var continuebutton = elementIsPresent(By.xpath("//div[1]/customize-page/div[3]/div[2]/div/div/div/div/pt-sticky/div/price-ticket-prices-wrapper/div/div[2]/button"));
+var slider = elementIsPresent(By.css("div.ProductRecs-close"));
 
-//POPUP CHECKER FUNCTIONS END
+//CONDITION CHECKER FUNCTIONS END
 
 /** BEGINNING OF SCRIPT **/
 
@@ -69,11 +69,6 @@ $browser.getCapabilities().then(function () { })
 .then(function() {
   log(1, '$browser.get("https://www.thomascook.com/")');
   return $browser.get("https://www.thomascook.com/"); })
-
-// Step 2
-//.then(function() {
-//  log(2, '$browser.navigate().refresh()');
-//  return $browser.navigate().refresh(); })
 
 // Step 2.1 Invite POP UP CHECK POINT
 .then(function(){
@@ -104,29 +99,7 @@ log(2.1,'Close Signup Invite Popup');
 // Step 4
 .then(function() {
   log(4, 'clickElement "Details"');
-  return $browser.waitForAndFindElement(By.linkText("Details"), DefaultTimeout); })
-.then(function (el) { el.click(); })
-
-// Step 4.1
-.then(function() {
-  log(6, 'clickElement "Rooms"');
-  return $browser.waitForAndFindElement(By.linkText("Rooms"), DefaultTimeout); })
-.then(function (el) { el.click(); })
-
-// Step 4.2
-.then(function() {
-  log(7, 'clickElement "div.ProductRecs-close"');
-	return elementIsPresent(By.css("div.ProductRecs-close")); })
-	.then(function(slider){
-		if(slider === true) {
-			console.log("Item located");
-	return $browser.findElement(By.css("div.ProductRecs-close"))
-	.then(function(el){	el.click();	});}})
-
-// Step 5
-.then(function() {
-  log(5, 'clickElement "Get Quote"');
-  return $browser.waitForAndFindElement(By.xpath("//div[@class='ptp-actions-continue']//button[.='Get Quote']"), DefaultTimeout); })
+  return $browser.waitForAndFindElement(By.css("a.BtnPrimary.detailsBtn"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 5.1
@@ -139,21 +112,29 @@ log(2.1,'Close Signup Invite Popup');
 	return $browser.findElement(By.xpath("//div[@id=\'bt_invite_box\']/div[2]/img"))
 	.then(function(el){	el.click();	});}})
 
-// Step 6
+// Step 16
 .then(function() {
-  log(6, 'clickElement "button.BtnPrimary.u-fullWidth"');
-  return $browser.waitForAndFindElement(By.css("button.BtnPrimary.u-fullWidth"), DefaultTimeout); })
+  log(16, 'clickElement "Get Quote"');
+  return $browser.waitForAndFindElement(By.xpath("//div[1]/accommodation-page/div[6]/div[2]/div/div/pt-sticky/div/div/div/price-ticket-prices-wrapper/div/div/button"), 240000); })
 .then(function (el) { el.click(); })
 
-// Step 2.2 twicebutton POP UP CHECK POINT
+// Step 18
 .then(function() {
-  log(2.2, 'clickElement "titleLabel"');
-  return elementIsPresent(By.id("titleLabel")); })
-	.then(function(twicebutton){
-		if(twicebutton === false) {
-			console.log("Item located");
-	return $browser.findElement(By.css("button.BtnPrimary.u-fullWidth"))
-	.then(function(el){	el.click();	});}})
+  log(18, 'clickElement "submit-extras"');
+  return $browser.waitForAndFindElement(By.id("submit-extras"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 83
+.then(function() {
+  log(83, 'clickElement "//label[@for=\'Extra-AIRPORT_PARKING-yes\']"');
+  return $browser.waitForAndFindElement(By.xpath("//label[@for=\'Extra-AIRPORT_PARKING-yes\']"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 56
+.then(function() {
+  log(56, 'clickElement "Continue with Holidays Extras"');
+  return $browser.waitForAndFindElement(By.css("button.ptp-actions-continue-button"), DefaultTimeout); })
+.then(function (el) { el.click(); })
 
 // Step 6.1
 .then(function() {
@@ -362,13 +343,13 @@ log(2.1,'Close Signup Invite Popup');
   return $browser.waitForAndFindElement(By.id("paxSubmit"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-// Step 31
-//.then(function() {
-//  log(31, 'setElementText "promoCodeInput"');
-//  return $browser.waitForAndFindElement(By.id("promoCodeInput"), DefaultTimeout); })
-//.then(function (el) {
-//  el.clear();
-//  el.sendKeys(); })
+// Step 38
+.then(function() {
+  log(38, 'setElementText "promoCode"');
+  return $browser.waitForAndFindElement(By.id("promoCode"), DefaultTimeout); })
+.then(function (el) {
+  el.clear();
+  el.sendKeys("test"); })
 
 .then(function() {
   log(lastStep, '');
@@ -376,8 +357,8 @@ log(2.1,'Close Signup Invite Popup');
   $browser.takeScreenshot();
 }, function(err) {
   console.log ('Browser script execution FAILED.');
-  throw(err);
   $browser.takeScreenshot();
+  throw(err);
 });
 
 /** END OF SCRIPT **/
