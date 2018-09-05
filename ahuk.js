@@ -48,6 +48,20 @@ var log = function(thisStep, thisMsg) {
   }
 };
 
+//POPUP CHECKER FUNCTIONS START
+
+function elementIsPresent(ele) {
+  return $browser.findElements(ele).then(function(found) {
+    return found.length > 0;
+  })
+}
+var titleLabel = elementIsPresent(By.id("titleLabel"));
+var custom = elementIsPresent(By.xpath("//div[@class='ptp-actions-continue']//button[.='Continue with selections']"));
+var custom1= elementIsPresent(By.xpath("//div[@class='ptp-actions-continue']//button[.='Continue with selections']"));
+
+//POPUP CHECKER FUNCTIONS END
+
+
 /** BEGINNING OF SCRIPT **/
 
 console.log('Starting synthetics script: ahuknr');
@@ -89,28 +103,26 @@ $browser.getCapabilities().then(function () { })
 // Step 5
 .then(function() {
   log(5, 'clickElement "Get Quote"');
-  return $browser.waitForAndFindElement(By.linkText("Get Quote"), DefaultTimeout); })
+  return $browser.waitForAndFindElement(By.xpath("//div[@class='ptp-actions-continue']//button[.='Get Quote']"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-// Step 6
+// Step 18
 .then(function() {
-  log(6, 'clickElement "submit-extras"');
+  log(18, 'clickElement "submit-extras"');
   return $browser.waitForAndFindElement(By.id("submit-extras"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-// Step 7
+// Step 83
 .then(function() {
-  log(7, 'clickElement "titleLabel"');
-  return $browser.waitForAndFindElement(By.id("titleLabel"), DefaultTimeout); })
+  log(83, 'clickElement "//label[@for=\'Extra-AIRPORT_PARKING-yes\']"');
+  return $browser.waitForAndFindElement(By.xpath("//label[@for=\'Extra-AIRPORT_PARKING-yes\']"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-// Step 8
+// Step 56
 .then(function() {
-  log(8, 'setElementSelected "//select[@id=\'title\']//option[2]"');
-  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'title\']//option[2]"), DefaultTimeout); })
-.then(function(el) { el.isSelected()
-  .then(function(bool) { if (!bool) { el.click(); } }); })
-
+  log(56, 'clickElement "Continue with Holidays Extras"');
+  return $browser.waitForAndFindElement(By.css("button.ptp-actions-continue-button"), DefaultTimeout); })
+.then(function (el) { el.click(); })
 // Step 9
 .then(function() {
   log(9, 'setElementText "name"');
@@ -126,6 +138,13 @@ $browser.getCapabilities().then(function () { })
 .then(function (el) {
   el.clear();
   el.sendKeys("Test"); })
+
+// Step 8
+.then(function() {
+  log(8, 'setElementSelected "//select[@id=\'title\']//option[2]"');
+  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'title\']//option[2]"), DefaultTimeout); })
+.then(function(el) { el.isSelected()
+  .then(function(bool) { if (!bool) { el.click(); } }); })
 
 // Step 11
 .then(function() {
