@@ -1,0 +1,281 @@
+/**
+ * Script Name: 
+ * 
+ * Generated script for New Relic Synthetics
+ * Generated using se-builder with New Relic Synthetics Formatter
+ *
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+/** CONFIGURATIONS **/
+
+// Theshold for duration of entire script - fails test if script lasts longer than X (in ms)
+// Script-wide timeout for all wait and waitAndFind functions (in ms)
+var DefaultTimeout = 80000;
+// Change to any User Agent you want to use.
+// Leave as "default" or empty to use the Synthetics default.
+var UserAgent = "default";
+
+/** HELPER VARIABLES AND FUNCTIONS **/
+
+var assert = require('assert'),
+  By = $driver.By,
+  browser = $browser.manage(),
+  startTime = Date.now(),
+  stepStartTime = Date.now(),
+  prevMsg = '',
+  prevStep = 0,
+  lastStep = 9999,
+VARS = {};
+// Uncomment and use this if you're running Se-Builder 2 and used Manual Entry variables.
+// If you don't know what those are, fuggedaboutit!
+// VARS = {{scriptManualEntryData}};
+
+var log = function(thisStep, thisMsg) {
+  if (thisStep > 1 || thisStep == lastStep) {
+    var totalTimeElapsed = Date.now() - startTime;
+    var prevStepTimeElapsed = totalTimeElapsed - stepStartTime;
+    console.log('Step ' + prevStep + ': ' + prevMsg + ' FINISHED. It took ' + prevStepTimeElapsed + 'ms to complete.');
+    $util.insights.set('Step ' + prevStep + ': ' + prevMsg, prevStepTimeElapsed);
+    if (DefaultTimeout > 0 && totalTimeElapsed > DefaultTimeout) {
+      throw new Error('Script timed out. ' + totalTimeElapsed + 'ms is longer than script timeout threshold of ' + DefaultTimeout + 'ms.');
+    }
+  }
+  if (thisStep > 0 && thisStep != lastStep) {
+    stepStartTime = Date.now() - startTime;
+    console.log('Step ' + thisStep + ': ' + thisMsg + ' STARTED at ' + stepStartTime + 'ms.');
+    prevMsg = thisMsg;
+    prevStep = thisStep;
+  }
+};
+
+/** BEGINNING OF SCRIPT **/
+
+console.log('Starting synthetics script: ');
+console.log('Default timeout is set to ' + (DefaultTimeout/1000) + ' seconds');
+console.log('Variables set in this script: ', VARS);
+
+// Setting User Agent is not then-able, so we do this first (if defined and not default)
+if (UserAgent && (0 !== UserAgent.trim().length) && (UserAgent != 'default')) {
+  $browser.addHeader('User-Agent', UserAgent);
+  console.log('Setting User-Agent to ' + UserAgent);
+}
+
+// Get browser capabilities and do nothing with it, so that we start with a then-able command
+$browser.getCapabilities().then(function () { })
+
+// Step 1
+.then(function() {
+  log(1, '$browser.get("https://www.thomascook.com/")');
+  return $browser.get("https://www.thomascook.com/"); })
+
+// Step 2
+.then(function() {
+  log(2, 'clickElement "City Breaks NEW"');
+  return $browser.waitForAndFindElement(By.xpath("//div[@id='globalHeaderContent']/ul/li[6]/a"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 3
+.then(function() {
+  log(3, 'setElementText "locationCtrl"');
+  return $browser.waitForAndFindElement(By.id("locationCtrl"), DefaultTimeout); })
+.then(function (el) {
+  el.clear();
+  el.sendKeys("london"); })
+
+// Step 4
+.then(function() {
+  log(4, 'clickElement "//mat-option[@id=\'mat-option-22\']/span/span"');
+  return $browser.waitForAndFindElement(By.xpath("//div[3]/div/div/div/mat-option[1]/span/span"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 5
+.then(function() {
+  log(5, 'setElementText "//sw-auto-suggest-field[@id=\'destination\']/mat-form-field/div/div[1]/div[2]/input"');
+  return $browser.waitForAndFindElement(By.xpath("//sw-auto-suggest-field[@id=\'destination\']/mat-form-field/div/div[1]/div[2]/input"), DefaultTimeout); })
+.then(function (el) {
+  el.clear();
+  el.sendKeys("spain"); })
+
+// Step 6
+.then(function() {
+  log(6, 'clickElement "//mat-option[@id=\'mat-option-33\']/span/span"');
+  return $browser.waitForAndFindElement(By.xpath("//div[3]/div[2]/div/div/mat-option[1]/span/span"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 7
+.then(function() {
+  log(7, 'clickElement "//div[@id=\'checkin\']/mat-form-field/div/div[1]/div[1]/mat-datepicker-toggle/button"');
+  return $browser.waitForAndFindElement(By.xpath("//div[@id=\'checkin\']/mat-form-field/div/div[1]/div[1]/mat-datepicker-toggle/button"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 8
+.then(function() {
+  log(8, 'clickElement "//div[@class=\'mat-calendar-controls\']//button[.=\'AUG 2018\']"');
+  return $browser.waitForAndFindElement(By.xpath("//div[@class='mat-calendar-controls']//button[.='SEP 2018']"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 9
+.then(function() {
+  log(9, 'clickElement "//tbody[@class=\'mat-calendar-body\']//div[.=\'2019\']"');
+  return $browser.waitForAndFindElement(By.xpath("//tbody[@class=\'mat-calendar-body\']//div[.=\'2019\']"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 10
+.then(function() {
+  log(10, 'clickElement "//tbody[@class=\'mat-calendar-body\']//div[.=\'MAR\']"');
+  return $browser.waitForAndFindElement(By.xpath("//tbody[@class=\'mat-calendar-body\']//div[.=\'MAR\']"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 11
+.then(function() {
+  log(11, 'clickElement "//tbody[@class=\'mat-calendar-body\']//div[.=\'30\']"');
+  return $browser.waitForAndFindElement(By.css("div.mat-calendar-body-cell-content"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 12
+.then(function() {
+  log(12, 'clickElement "//mat-tab-body[@id=\'mat-tab-content-0-2\']//button[normalize-space(.)=\'searchSearch\']"');
+  return $browser.waitForAndFindElement(By.xpath("//mat-tab-body[@id=\'mat-tab-content-0-2\']//button[normalize-space(.)=\'searchSearch\']"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 13
+.then(function() {
+  log(13, 'clickElement "Select The Gates Diagonal Barcelona. Opens in a new window."');
+  return $browser.waitForAndFindElement(By.xpath("//article[@id='1153145']/div[2]/div/a"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+
+.then(function() {
+  log(lastStep, '');
+  console.log('Browser script execution SUCCEEDED.');
+}, function(err) {
+  console.log ('Browser script execution FAILED.');
+  throw(err);})
+
+/**
+ * Script Name: 
+ * 
+ * Generated script for New Relic Synthetics
+ * Generated using se-builder with New Relic Synthetics Formatter
+ *
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+/** CONFIGURATIONS **/
+
+// Theshold for duration of entire script - fails test if script lasts longer than X (in ms)
+// Script-wide timeout for all wait and waitAndFind functions (in ms)
+//var DefaultTimeout = 80000;
+// Change to any User Agent you want to use.
+// Leave as "default" or empty to use the Synthetics default.
+//var UserAgent = "default";
+
+/** HELPER VARIABLES AND FUNCTIONS **/
+
+/*var assert = require('assert'),
+  By = $driver.By,
+  browser = $browser.manage(),
+  startTime = Date.now(),
+  stepStartTime = Date.now(),
+  prevMsg = '',
+  prevStep = 0,
+  lastStep = 9999,
+VARS = {};
+// Uncomment and use this if you're running Se-Builder 2 and used Manual Entry variables.
+// If you don't know what those are, fuggedaboutit!
+// VARS = {{scriptManualEntryData}};
+
+var log = function(thisStep, thisMsg) {
+  if (thisStep > 1 || thisStep == lastStep) {
+    var totalTimeElapsed = Date.now() - startTime;
+    var prevStepTimeElapsed = totalTimeElapsed - stepStartTime;
+    console.log('Step ' + prevStep + ': ' + prevMsg + ' FINISHED. It took ' + prevStepTimeElapsed + 'ms to complete.');
+    $util.insights.set('Step ' + prevStep + ': ' + prevMsg, prevStepTimeElapsed);
+    if (DefaultTimeout > 0 && totalTimeElapsed > DefaultTimeout) {
+      throw new Error('Script timed out. ' + totalTimeElapsed + 'ms is longer than script timeout threshold of ' + DefaultTimeout + 'ms.');
+    }
+  }
+  if (thisStep > 0 && thisStep != lastStep) {
+    stepStartTime = Date.now() - startTime;
+    console.log('Step ' + thisStep + ': ' + thisMsg + ' STARTED at ' + stepStartTime + 'ms.');
+    prevMsg = thisMsg;
+    prevStep = thisStep;
+  }
+};*/
+
+/** BEGINNING OF SCRIPT **/
+
+/*console.log('Starting synthetics script: ');
+console.log('Default timeout is set to ' + (DefaultTimeout/1000) + ' seconds');
+console.log('Variables set in this script: ', VARS);
+
+// Setting User Agent is not then-able, so we do this first (if defined and not default)
+if (UserAgent && (0 !== UserAgent.trim().length) && (UserAgent != 'default')) {
+  $browser.addHeader('User-Agent', UserAgent);
+  console.log('Setting User-Agent to ' + UserAgent);
+}
+
+// Get browser capabilities and do nothing with it, so that we start with a then-able command
+$browser.getCapabilities().then(function () { })
+
+// Step 13
+.then(function() {
+  log(13, '$browser.get("https://ww5.thomascook.com/Barcelona-Hotels-Hotel-1898.h1281487.Hotel-Information?chkin=11/4/2019&chkout=12/4/2019&rm1=a2&misId=8255b28c-7b1f-4def-a827-2cd0d6a2b892&sort=recommended&hwrqCacheKey=9f47591c-f271-478f-82e2-7c6004e21d29HWRQ1535931009447&cancellable=false&regionId=179992&vip=false&c=b1e7e685-dbc9-498a-9c9d-a8ec95df5b9d&packageType=fh&exp_dp=489.84&exp_ts=1535931009822&exp_curr=GBP&swpToggleOn=false&exp_pg=HSR&inttkn=WeTbvLxBxUdipGv1")');
+  return $browser.get("https://ww5.thomascook.com/Barcelona-Hotels-Hotel-1898.h1281487.Hotel-Information?chkin=11/4/2019&chkout=12/4/2019&rm1=a2&misId=8255b28c-7b1f-4def-a827-2cd0d6a2b892&sort=recommended&hwrqCacheKey=9f47591c-f271-478f-82e2-7c6004e21d29HWRQ1535931009447&cancellable=false&regionId=179992&vip=false&c=b1e7e685-dbc9-498a-9c9d-a8ec95df5b9d&packageType=fh&exp_dp=489.84&exp_ts=1535931009822&exp_curr=GBP&swpToggleOn=false&exp_pg=HSR&inttkn=WeTbvLxBxUdipGv1"); })
+
+// Step 14
+.then(function() {
+  log(14, 'clickElement "Select Classic Room"');
+  return $browser.waitForAndFindElement(By.css("a.btn"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+
+
+
+// Step 15
+.then(function() {
+  log(15, 'clickElement "//li[@id=\'flight-module-2019-03-30t19:00:00-00:00-coach-lhr-bcn-vy-7841_2019-03-31t18:25:00+02:00-coach-bcn-lhr-vy-7840_\']/div[1]/div[1]/div[2]/div/div[2]/button"');
+  return $browser.waitForAndFindElement(By.xpath("//li[@id='flight-module-2019-04-11t06:15:00+01:00-coach-lhr-bcn-ba-472_2019-04-12t07:10:00+02:00-coach-bcn-lhr-ba-477_']/div[1]/div[1]/div[2]/div/div[2]/button"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 16
+.then(function() {
+  log(16, 'clickElement "//li[@id=\'flight-module-2019-03-30t19:00:00-00:00-coach-lhr-bcn-vy-7841_2019-03-31t18:25:00+02:00-coach-bcn-lhr-vy-7840_\']/div[1]/div[1]/div[2]/div/div[2]/button"');
+  return $browser.waitForAndFindElement(By.xpath("//li[@id='flight-module-2019-04-11t06:15:00+01:00-coach-lhr-bcn-ba-472_2019-04-12t20:40:00+02:00-coach-bcn-lhr-ba-487_']/div[1]/div[1]/div[2]/div/div[2]/button"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+// Step 17
+.then(function() {
+  log(17, 'clickElement "button.btn-primary.btn-action"');
+  return $browser.waitForAndFindElement(By.xpath("//div[5]/aside/footer/div/div[2]/button"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+
+// Step 18
+
+.then(function() {
+  log(18, 'setElementText "firstname[0]"');
+  return $browser.waitForAndFindElement(By.id("firstname[0]"), DefaultTimeout); })
+.then(function (el) {
+  el.clear();
+  el.sendKeys("Guru"); })
+
+
+
+.then(function() {
+  log(lastStep, '');
+  console.log('Browser script execution SUCCEEDED.');
+}, function(err) {
+  console.log ('Browser script execution FAILED.');
+  throw(err);
+});*/
+
+/** END OF SCRIPT **/
+
+
+/** END OF SCRIPT **/
