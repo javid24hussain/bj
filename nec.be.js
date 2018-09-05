@@ -55,6 +55,7 @@ function elementIsPresent(ele) {
   })
 }
 var slider = elementIsPresent(By.css("div.ProductRecs-close"));
+var options = elementIsPresent(By.xpath("//select[@id='pax-marketing-consent']//option[3]"))
 
 //SLIDER CHECK END
 
@@ -103,25 +104,31 @@ $browser.getCapabilities().then(function () { })
 .then(function (el) { el.click(); })
 
 // Step 6
-.then(function() {
-  log(6, 'clickElement "Chambres"');
-  return $browser.waitForAndFindElement(By.linkText("Chambres"), DefaultTimeout); })
-.then(function (el) { el.click(); })
+//.then(function() {
+  //log(6, 'clickElement "Chambres"');
+  //return $browser.waitForAndFindElement(By.linkText("Séjour"), DefaultTimeout); })
+//.then(function (el) { el.click(); })
+
+// Step 6
+//.then(function() {
+  //log(6, 'clickElement "Plus doptions"');
+  //return $browser.waitForAndFindElement(By.linkText("Départ"), DefaultTimeout); })
+//.then(function (el) { el.click(); })
 
 // Step 7
-.then(function() {
-  log(7, 'clickElement "div.ProductRecs-close"');
-	return elementIsPresent(By.css("div.ProductRecs-close")); })
-	.then(function(slider){
-		if(slider === true) {
-			console.log("Item located");
-	return $browser.findElement(By.css("div.ProductRecs-close"))
-	.then(function(el){	el.click();	});}})
+//.then(function() {
+  //log(7, 'clickElement "div.ProductRecs-close"');
+	//return elementIsPresent(By.css("div.ProductRecs-close")); })
+	//.then(function(slider){
+		//if(slider === true) {
+			//console.log("Item located");
+	//return $browser.findElement(By.css("div.ProductRecs-close"))
+	//.then(function(el){	el.click();	});}})
 
 // Step 8
 .then(function() {
   log(8, 'clickElement "//div[@id=\'stickyBreak\']//button[.=\'Calculer prix total\']"');
-  return $browser.waitForAndFindElement(By.xpath("//div[@id=\'stickyBreak\']//button[.=\'Calculer prix total\']"), DefaultTimeout); })
+  return $browser.waitForAndFindElement(By.css("button.BtnPrimary"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 9
@@ -132,21 +139,39 @@ $browser.getCapabilities().then(function () { })
 
 // Step 9.1
 .then(function() {
-  log(9.1, 'clickElement "submit-extras"');
-  return $browser.waitForAndFindElement(By.id("submit-extras"), DefaultTimeout); })
+ log(9.1, 'clickElement "next step"');
+  return $browser.waitForAndFindElement(By.id("pageTop"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-
-// Step 9.1
+/*// Step 9.2
 .then(function() {
-  log(9.1, 'mouseOverElement "button.BtnPrimary"');
+  log(9.2, 'clickElement "submit-extras"');
+  return $browser.waitForAndFindElement(By.id("submit-extras"), DefaultTimeout); })
+.then(function (el) { el.click(); })*/
+
+
+// Step 9.3
+.then(function() {
+  log(9.3, 'mouseOverElement "button.BtnPrimary"');
   return $browser.waitForAndFindElement(By.css("button.BtnPrimary"), DefaultTimeout); })
 .then(function (el) { $browser.actions().mouseMove(el).perform(); })
 
-// Step 9.2
+// Step 9.4
 .then(function() {
-  log(9.2, 'clickElement "button.BtnPrimary"');
+  log(9.4, 'clickElement "button.BtnPrimary"');
   return $browser.waitForAndFindElement(By.css("button.BtnPrimary"), DefaultTimeout); })
+.then(function (el) { el.click(); })
+
+/*// Step 9.5
+.then(function() {
+  log(9.5, 'clickElement "submit-extras"');
+  return $browser.waitForAndFindElement(By.xpath("//div[1]/customize-page/div[3]/div[1]/div[3]/div/button"), DefaultTimeout); })
+.then(function (el) { el.click(); })*/
+
+// Step 9.6
+.then(function() {
+  log(9.6, 'clickElement "pop-up"');
+  return $browser.waitForAndFindElement(By.xpath("//div[@class='modal-body']//button[.='Oui']"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 10
@@ -275,6 +300,13 @@ $browser.getCapabilities().then(function () { })
   el.clear();
   el.sendKeys("31302357822"); })
 
+/*// Step 26.1
+.then(function() {
+  log(26.1, 'setElementSelected "//select[@id=\'pax-marketing-consent\']//option[2]"');
+  return $browser.waitForAndFindElement(By.xpath("//a[@id='leadPassengerSubmit']//span[.='Continuer']"), DefaultTimeout); })
+.then(function(el) { el.isSelected()
+  .then(function(bool) { if (!bool) { el.click(); } }); })*/
+
 // Step 27
 .then(function() {
   log(27, 'clickElement "Continuer"');
@@ -286,6 +318,27 @@ $browser.getCapabilities().then(function () { })
 //  log(28, 'clickElement "title2Room1Label"');
 //  return $browser.waitForAndFindElement(By.id("title2Room1Label"), DefaultTimeout); })
 //.then(function (el) { el.click(); })
+
+.then(function(){
+log(2.1,'Close options');
+	return elementIsPresent(By.xpath("//select[@id='pax-marketing-consent']//option[3]")); })
+	.then(function(options){
+		if(options === true) {
+			console.log("Item located");
+	return $browser.findElement(By.xpath("//select[@id='pax-marketing-consent']//option[3]"))
+	.then(function(el){	el.click();	});}})
+
+/*// Step 28
+.then(function() {
+  log(28, 'clickElement "options"');
+  return $browser.waitForAndFindElement(By.xpath("//select[@id='pax-marketing-consent']//option[3]"), DefaultTimeout); })
+.then(function (el) { el.click(); })*/
+
+// Step 28.1
+.then(function() {
+  log(28.1, 'clickElement "Continuer"');
+  return $browser.waitForAndFindElement(By.linkText("Continuer"), DefaultTimeout); })
+.then(function (el) { el.click(); })
 
 // Step 29
 .then(function() {
