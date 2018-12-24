@@ -1,6 +1,10 @@
 /**
- * Script Name: ahuknr
+ * Script Name: Airtours.CO.UK
+ * Last Modified By: Javid
+ * What Changes were Made?: Added Browser Sleep in each step
  * 
+ * Generated script for New Relic Synthetics
+ * Generated using se-builder with New Relic Synthetics Formatter
  *
  * Feel free to explore, or check out the full documentation
  * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
@@ -11,7 +15,7 @@
 
 // Theshold for duration of entire script - fails test if script lasts longer than X (in ms)
 // Script-wide timeout for all wait and waitAndFind functions (in ms)
-var DefaultTimeout = 120000;
+var DefaultTimeout = 180000;
 // Change to any User Agent you want to use.
 // Leave as "default" or empty to use the Synthetics default.
 var UserAgent = "default";
@@ -27,6 +31,7 @@ var assert = require('assert'),
   prevStep = 0,
   lastStep = 9999,
 VARS = {};
+// Uncomment and use this if you're running Se-Builder 2 and used Manual Entry variables.
 // If you don't know what those are, fuggedaboutit!
 // VARS = {{scriptManualEntryData}};
 
@@ -48,23 +53,9 @@ var log = function(thisStep, thisMsg) {
   }
 };
 
-//POPUP CHECKER FUNCTIONS START
-
-function elementIsPresent(ele) {
-  return $browser.findElements(ele).then(function(found) {
-    return found.length > 0;
-  })
-}
-var titleLabel = elementIsPresent(By.id("titleLabel"));
-var custom = elementIsPresent(By.xpath("//div[@class='ptp-actions-continue']//button[.='Continue with selections']"));
-var custom1= elementIsPresent(By.xpath("//div[@class='ptp-actions-continue']//button[.='Continue with selections']"));
-
-//POPUP CHECKER FUNCTIONS END
-
-
 /** BEGINNING OF SCRIPT **/
 
-console.log('Starting synthetics script: ahuknr');
+console.log('Starting synthetics script: darahuk');
 console.log('Default timeout is set to ' + (DefaultTimeout/1000) + ' seconds');
 console.log('Variables set in this script: ', VARS);
 
@@ -85,6 +76,8 @@ $browser.getCapabilities().then(function () { })
 // Step 2
 .then(function() {
   log(2, 'clickElement "accept-cookies"');
+  return $browser.sleep(10000) })
+.then(function () {
   return $browser.waitForAndFindElement(By.id("accept-cookies"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
@@ -96,40 +89,52 @@ $browser.getCapabilities().then(function () { })
 
 // Step 4
 .then(function() {
-  log(4, 'clickElement "a.BtnPrimary.detailsBtn"');
-  return $browser.waitForAndFindElement(By.css("a.BtnPrimary.detailsBtn"), DefaultTimeout); })
+  log(4, 'clickElement "//div[@class=\'SearchResult\']//a[.=\'Details\']"');
+  return $browser.sleep(15000) })
+.then(function () {
+  return $browser.waitForAndFindElement(By.xpath("//div[@class=\'SearchResult\']//a[.=\'Details\']"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
 // Step 5
 .then(function() {
-  log(5, 'clickElement "Get Quote"');
-  return $browser.waitForAndFindElement(By.xpath("//div[@class='ptp-actions-continue']//button[.='Get Quote']"), DefaultTimeout); })
+  log(5, 'clickElement "button.pt-actions-continue-button.BtnPrimary"');
+  return $browser.sleep(15000) })
+.then(function () {
+  return $browser.waitForAndFindElement(By.css("button.pt-actions-continue-button.BtnPrimary"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-// Step 18
+// Step 6
 .then(function() {
-  log(18, 'clickElement "submit-extras"');
+  log(6, 'clickElement "submit-extras"');
+  return $browser.sleep(27000) })
+.then(function () {
   return $browser.waitForAndFindElement(By.id("submit-extras"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-// Step 83
+// Step 7
 .then(function() {
-  log(83, 'clickElement "//label[@for=\'Extra-AIRPORT_PARKING-yes\']"');
-  return $browser.waitForAndFindElement(By.xpath("//label[@for=\'Extra-AIRPORT_PARKING-yes\']"), DefaultTimeout); })
+  log(7, 'clickElement "submit-extras"');
+  return $browser.sleep(27000) })
+.then(function () {
+  return $browser.waitForAndFindElement(By.id("submit-extras"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-// Step 56
+// Step 8
 .then(function() {
-  log(56, 'clickElement "Continue with Holidays Extras"');
-  return $browser.waitForAndFindElement(By.css("button.ptp-actions-continue-button"), DefaultTimeout); })
-.then(function (el) { el.click(); })
+  log(8, 'setElementSelected "//select[@id=\'title\']//option[2]"');
+  return $browser.sleep(27000) })
+.then(function () {
+  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'title\']//option[2]"), DefaultTimeout); })
+.then(function(el) { el.isSelected()
+  .then(function(bool) { if (!bool) { el.click(); } }); })
+
 // Step 9
 .then(function() {
   log(9, 'setElementText "name"');
   return $browser.waitForAndFindElement(By.id("name"), DefaultTimeout); })
 .then(function (el) {
   el.clear();
-  el.sendKeys("Test"); })
+  el.sendKeys("test"); })
 
 // Step 10
 .then(function() {
@@ -137,14 +142,7 @@ $browser.getCapabilities().then(function () { })
   return $browser.waitForAndFindElement(By.id("surname"), DefaultTimeout); })
 .then(function (el) {
   el.clear();
-  el.sendKeys("Test"); })
-
-// Step 8
-.then(function() {
-  log(8, 'setElementSelected "//select[@id=\'title\']//option[2]"');
-  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'title\']//option[2]"), DefaultTimeout); })
-.then(function(el) { el.isSelected()
-  .then(function(bool) { if (!bool) { el.click(); } }); })
+  el.sendKeys("test"); })
 
 // Step 11
 .then(function() {
@@ -178,146 +176,124 @@ $browser.getCapabilities().then(function () { })
 
 // Step 15
 .then(function() {
-  log(15, 'clickElement "addressSelectLabel"');
-  return $browser.waitForAndFindElement(By.id("addressSelectLabel"), DefaultTimeout); })
-.then(function (el) { el.click(); })
-
-// Step 16
-.then(function() {
-  log(16, 'setElementSelected "//select[@id=\'addressSelect\']//option[2]"');
-  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'addressSelect\']//option[2]"), DefaultTimeout); })
+  log(15, 'setElementSelected "//select[@id=\'addressSelect\']//option[3]"');
+  return $browser.sleep(5000) })
+.then(function () {
+  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'addressSelect\']//option[3]"), DefaultTimeout); })
 .then(function(el) { el.isSelected()
   .then(function(bool) { if (!bool) { el.click(); } }); })
 
+// Step 16
+.then(function() {
+  log(16, 'setElementText "street1"');
+  return $browser.waitForAndFindElement(By.id("street1"), DefaultTimeout); })
+.then(function (el) {
+  el.clear();
+  el.sendKeys("Pilgrims WAY"); })
+
 // Step 17
 .then(function() {
-  log(17, 'clickElement "//label[@for=\'day\']"');
-  return $browser.waitForAndFindElement(By.xpath("//label[@for=\'day\']"), DefaultTimeout); })
-.then(function (el) { el.click(); })
+  log(17, 'setElementSelected "//select[@id=\'day\']//option[6]"');
+  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'day\']//option[6]"), DefaultTimeout); })
+.then(function(el) { el.isSelected()
+  .then(function(bool) { if (!bool) { el.click(); } }); })
 
 // Step 18
 .then(function() {
-  log(18, 'setElementSelected "//select[@id=\'day\']//option[2]"');
-  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'day\']//option[2]"), DefaultTimeout); })
+  log(18, 'setElementSelected "//select[@id=\'month\']//option[6]"');
+  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'month\']//option[6]"), DefaultTimeout); })
 .then(function(el) { el.isSelected()
   .then(function(bool) { if (!bool) { el.click(); } }); })
 
 // Step 19
 .then(function() {
-  log(19, 'setElementSelected "//select[@id=\'month\']//option[2]"');
-  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'month\']//option[2]"), DefaultTimeout); })
+  log(19, 'setElementSelected "//select[@id=\'year\']//option[15]"');
+  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'year\']//option[15]"), DefaultTimeout); })
 .then(function(el) { el.isSelected()
   .then(function(bool) { if (!bool) { el.click(); } }); })
 
 // Step 20
 .then(function() {
-  log(20, 'setElementSelected "//select[@id=\'year\']//option[15]"');
-  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'year\']//option[15]"), DefaultTimeout); })
-.then(function(el) { el.isSelected()
-  .then(function(bool) { if (!bool) { el.click(); } }); })
-
-// Step 21
-.then(function() {
-  log(21, 'setElementText "contactNumber"');
+  log(20, 'setElementText "contactNumber"');
   return $browser.waitForAndFindElement(By.id("contactNumber"), DefaultTimeout); })
 .then(function (el) {
   el.clear();
   el.sendKeys("02072194272"); })
 
-// Step 22
+// Step 21
 .then(function() {
-  log(22, 'setElementSelected "//select[@id=\'pax-marketing-consent\']//option[3]"');
+  log(21, 'setElementSelected "//select[@id=\'pax-marketing-consent\']//option[3]"');
   return $browser.waitForAndFindElement(By.xpath("//select[@id=\'pax-marketing-consent\']//option[3]"), DefaultTimeout); })
 .then(function(el) { el.isSelected()
   .then(function(bool) { if (!bool) { el.click(); } }); })
 
-// Step 23
+// Step 22
 .then(function() {
-  log(23, 'clickElement "Continue"');
+  log(22, 'clickElement "Continue"');
   return $browser.waitForAndFindElement(By.linkText("Continue"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-// Step 24
+// Step 23
 .then(function() {
-  log(24, 'clickElement "title2Room1Label"');
-  return $browser.waitForAndFindElement(By.id("title2Room1Label"), DefaultTimeout); })
-.then(function (el) { el.click(); })
-
-// Step 25
-.then(function() {
-  log(25, 'setElementSelected "//select[@id=\'title2Room1\']//option[3]"');
+  log(23, 'setElementSelected "//select[@id=\'title2Room1\']//option[3]"');
+  return $browser.sleep(10000) })
+.then(function () {
   return $browser.waitForAndFindElement(By.xpath("//select[@id=\'title2Room1\']//option[3]"), DefaultTimeout); })
 .then(function(el) { el.isSelected()
   .then(function(bool) { if (!bool) { el.click(); } }); })
 
-// Step 26
+// Step 24
 .then(function() {
-  log(26, 'setElementText "name2Room1"');
+  log(24, 'setElementText "name2Room1"');
   return $browser.waitForAndFindElement(By.id("name2Room1"), DefaultTimeout); })
 .then(function (el) {
   el.clear();
-  el.sendKeys("Test"); })
+  el.sendKeys("test"); })
 
-// Step 27
+// Step 25
 .then(function() {
-  log(27, 'setElementText "surname2Room1"');
+  log(25, 'setElementText "surname2Room1"');
   return $browser.waitForAndFindElement(By.id("surname2Room1"), DefaultTimeout); })
 .then(function (el) {
   el.clear();
-  el.sendKeys("Test"); })
+  el.sendKeys("test"); })
+
+// Step 26
+.then(function() {
+  log(26, 'setElementSelected "//select[@id=\'day2Room1\']//option[15]"');
+  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'day2Room1\']//option[15]"), DefaultTimeout); })
+.then(function(el) { el.isSelected()
+  .then(function(bool) { if (!bool) { el.click(); } }); })
+
+// Step 27
+.then(function() {
+  log(27, 'setElementSelected "//select[@id=\'month2Room1\']//option[10]"');
+  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'month2Room1\']//option[10]"), DefaultTimeout); })
+.then(function(el) { el.isSelected()
+  .then(function(bool) { if (!bool) { el.click(); } }); })
 
 // Step 28
 .then(function() {
-  log(28, 'setElementSelected "//select[@id=\'day2Room1\']//option[2]"');
-  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'day2Room1\']//option[2]"), DefaultTimeout); })
+  log(28, 'setElementSelected "//select[@id=\'year2Room1\']//option[15]"');
+  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'year2Room1\']//option[15]"), DefaultTimeout); })
 .then(function(el) { el.isSelected()
   .then(function(bool) { if (!bool) { el.click(); } }); })
 
 // Step 29
 .then(function() {
-  log(29, 'setElementSelected "//select[@id=\'month2Room1\']//option[2]"');
-  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'month2Room1\']//option[2]"), DefaultTimeout); })
-.then(function(el) { el.isSelected()
-  .then(function(bool) { if (!bool) { el.click(); } }); })
-
-// Step 30
-.then(function() {
-  log(30, 'setElementSelected "//select[@id=\'year2Room1\']//option[14]"');
-  return $browser.waitForAndFindElement(By.xpath("//select[@id=\'year2Room1\']//option[14]"), DefaultTimeout); })
-.then(function(el) { el.isSelected()
-  .then(function(bool) { if (!bool) { el.click(); } }); })
-
-// Step 31
-.then(function() {
-  log(31, 'clickElement "paxSubmit"');
+  log(29, 'clickElement "paxSubmit"');
   return $browser.waitForAndFindElement(By.id("paxSubmit"), DefaultTimeout); })
 .then(function (el) { el.click(); })
 
-// Step 32
+// Step 61
+.then(function() {
+  log(61, 'setElementText "promoCode"');
+  return $browser.sleep(5000) })
 .then(function () {
-  log(32, 'verifyTextPresent "Check your details and pay"');
-  $browser.findElement(By.tagName('body')).getText().then(function (text) { return text.indexOf("Check your details and pay") != -1; }).then(function (bool) {
-    if (!bool) {
-      console.log('verifyTextPresent FAILED.');
-      $browser.takeScreenshot();
-    } else {
-      console.log('verifyTextPresent SUCCEEDED.');
-    }
-  });
-})
-
-// Step 33
-.then(function () {
-  log(33, 'verifyTextPresent "Card type"');
-  $browser.findElement(By.tagName('body')).getText().then(function (text) { return text.indexOf("Card type") != -1; }).then(function (bool) {
-    if (!bool) {
-      console.log('verifyTextPresent FAILED.');
-      $browser.takeScreenshot();
-    } else {
-      console.log('verifyTextPresent SUCCEEDED.');
-    }
-  });
-})
+  return $browser.waitForAndFindElement(By.id("promoCode"), DefaultTimeout); })
+.then(function (el) {
+  el.clear();
+  el.sendKeys("TESTPROMO"); })
 
 .then(function() {
   log(lastStep, '');
