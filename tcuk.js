@@ -67,7 +67,7 @@ var help = elementIsPresent(By.xpath("//div[@id=\'bt_invite_box\']/div[2]/img"))
 
 /** BEGINNING OF SCRIPT **/
 
-console.log('Starting synthetics script: brandnewtcuk');
+console.log('Starting synthetics script: Thomascook.com Booking Journey');
 console.log('Default timeout is set to ' + (DefaultTimeout/1000) + ' seconds');
 console.log('Variables set in this script: ', VARS);
 
